@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script>
+    (function () {
+      const user = localStorage.getItem("loggedInUser");
+      const page = window.location.pathname;
+
+      if (!user && (
+        page.includes("found-items") ||
+        page.includes("lost-items") ||
+        page.includes("my-items") ||
+        page.includes("report-item")
+      )) {
+        window.location.replace("login.html");
+      }
+    })();
+  </script>
+
+  <title>Found Items | CampusFind</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+CampusFind Portal
+</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="lost-items.html">Lost Items</a>
+<a href="found-items.html">Found Items</a>
+<a href="report-item.html">Report Item</a>
+<a href="my-items.html">My Items</a>
+</nav>
+
+</header>
+
+<section class="items-section">
+
+<h1>Found Items</h1>
+
+<input 
+type="text" 
+id="searchInput" 
+class="search-bar" 
+placeholder="Search found items..."
+>
+
+<div class="items-grid" id="foundItems"></div>
+
+</section>
+
+<script src="js/found-items.js"></script>
+<script src="js/navbar.js"></script>
+
+</body>
+</html>

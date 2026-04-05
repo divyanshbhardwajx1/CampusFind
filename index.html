@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CampusFind</title>
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">CampusFind</div>
+
+<nav class="nav-links">
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="lost-items.html">Lost Items</a>
+<a href="found-items.html">Found Items</a>
+<a href="my-items.html">My Items</a>
+</nav>
+
+<div class="nav-right">
+
+<div id="authSection">
+<a href="login.html">Login</a>
+<a href="register.html">Register</a>
+</div>
+
+<div id="userSection" style="display:none;">
+<span id="username"></span>
+<button onclick="logout()" class="report-btn">Logout</button>
+</div>
+
+<a href="report-item.html" class="report-btn">Report Item Now</a>
+
+</div>
+
+</header>
+<div id="userSection" style="display:none;">
+<span id="username"></span>
+<button onclick="logout()" class="report-btn">Logout</button>
+</div>
+
+</div>
+
+<section class="hero">
+
+<div class="hero-left">
+
+<p class="tag">Find What's Lost</p>
+
+<h1>
+  Oops! Did You <br>
+  <span class="no-break">Lose Something</span> <br>
+  On Campus?
+</h1>
+
+<p class="desc">
+Don't panic! CampusFind helps you track misplaced belongings
+and reconnect with them quickly.
+</p>
+
+
+</div>
+
+
+<div class="hero-right">
+
+<img src="campus.jpg" class="hero-img">
+
+
+<div class="card card1">
+<h3>50+</h3>
+<p>Moderators</p>
+</div>
+
+<div class="card card2">
+<h3>5k+ Users</h3>
+<p>Items Found</p>
+</div>
+
+<div class="card card3">
+<h3>97%</h3>
+<p>Success Rate</p>
+</div>
+
+
+</div>
+
+</section>
+
+<section class="how-it-works">
+
+<h2>How CampusFind Works</h2>
+
+<div class="steps">
+
+<div class="step">
+<div class="icon">🔍</div>
+<h3>Report Lost Item</h3>
+<p>Submit details about the item you lost including description, location and date.</p>
+</div>
+
+<div class="step">
+<div class="icon">📢</div>
+<h3>Community Helps</h3>
+<p>Students and staff who find items can report them on the portal.</p>
+</div>
+
+<div class="step">
+<div class="icon">🎉</div>
+<h3>Recover Belongings</h3>
+<p>Match lost items with found ones and reconnect with your belongings.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="about" class="about-section">
+
+  <h2>About CampusFind</h2>
+
+  <p>
+    CampusFind is a smart Lost & Found portal designed for college campuses.
+    It helps students and staff report lost or found items, search easily,
+    and reconnect with their belongings in a secure and efficient way.
+  </p>
+
+  <div class="about-features">
+
+    <div class="feature">
+      <h3>🔍 Easy Search</h3>
+      <p>Quickly find lost or found items using smart filters.</p>
+    </div>
+
+    <div class="feature">
+      <h3>🔐 Secure Claims</h3>
+      <p>Claim system ensures only genuine users can request items.</p>
+    </div>
+
+    <div class="feature">
+      <h3>📦 Organized Records</h3>
+      <p>All reports are structured and easy to manage.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<script src="js/navbar.js"></script>
+
+</body>
+</html>
+

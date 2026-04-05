@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Item | CampusFind</title>
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+CampusFind Portal
+</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="lost-items.html">Lost Items</a>
+<a href="found-items.html">Found Items</a>
+<a href="my-items.html">My Items</a>
+</nav>
+
+<button class="report-btn">
+Report Item
+</button>
+
+</header>
+
+<section class="report-section">
+
+<h1>Report Lost or Found Item</h1>
+
+<form class="report-form" id="reportForm">
+
+<label>Item Type</label>
+<select id="itemType">
+<option value="lost">Lost Item</option>
+<option value="found">Found Item</option>
+</select>
+
+<label>Item Name</label>
+<input type="text" id="itemName" required>
+
+<label>Category</label>
+<select id="category">
+<option>ID Card</option>
+<option>Electronics</option>
+<option>Books</option>
+<option>Accessories</option>
+<option>Other</option>
+</select>
+
+<label>Description</label>
+<textarea id="description"></textarea>
+
+<label>Location</label>
+<input type="text" id="location">
+
+<label>Date</label>
+<input type="date" id="date">
+
+<label>Upload Image</label>
+<input type="file" id="itemImage" accept="image/*">
+
+<button class="submit-btn">Submit Report</button>
+
+</form>
+</section>
+
+<script src="js/script.js"></script>
+<script src="js/navbar.js"></script>
+
+<script>
+if(!localStorage.getItem("loggedInUser")){
+window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
