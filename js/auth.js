@@ -1,97 +1,121 @@
+document.addEventListener("DOMContentLoaded", function () {
 
-const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  console.log("auth.js loaded");
 
-const protectedPages = [
-  "lost-items.html",
-  "found-items.html",
-  "my-items.html",
-  "report-item.html",
-  "admin.html"  
-];
+  // ================= USER SESSION =================
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-const publicPages = [
-  "login.html",
-  "register.html"
-];
+  const adminLink = document.getElementById("adminLink");
 
-const currentPage = window.location.pathname.split("/").pop();
+  if (adminLink && user && user.role === "admin") {
+    adminLink.style.display = "inline-block";
+  }
 
-if (protectedPages.includes(currentPage) && !user) {
-  window.location.replace("login.html");
-}
+  const protectedPages = [
+    "lost-items.html",
+    "found-items.html",
+    "my-items.html",
+    "report-item.html",
+    "admin.html"
+  ];
 
-document.body.style.visibility = "visible";
+  const currentPage = window.location.pathname.split("/").pop();
 
+  if (protectedPages.includes(currentPage) && !user) {
+    window.location.replace("login.html");
+  }
 
-// ================= REGISTER =================
+  document.body.style.visibility = "visible";
 
-const registerForm = document.getElementById("registerForm");
+  // ================= REGISTER =================
+  const registerForm = document.getElementById("registerForm");
 
-if(registerForm){
+  if (registerForm) {
+    console.log("Register form detected");
 
-registerForm.addEventListener("submit", function(e){
+    registerForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-e.preventDefault();
+      console.log("Register clicked");
 
-const user = {
-name: document.getElementById("name").value,
-email: document.getElementById("email").value,
-password: document.getElementById("password").value
-};
+      const userData = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value.trim()
+      };
 
-let users = JSON.parse(localStorage.getItem("users")) || [];
+      try {
+        const res = await fetch("http://127.0.0.1:5000/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData)
+        });
 
-users.push(user);
+        const data = await res.json();
 
-localStorage.setItem("users", JSON.stringify(users));
+        if (res.ok) {
+          alert("Registered successfully!");
+          window.location.href = "login.html";
+        } else {
+          alert(data.error);
+        }
 
-alert("Registered successfully!");
+      } catch (err) {
+        console.log(err);
+        alert("Server error!");
+      }
+    });
+  }
 
-window.location.href = "login.html";
+  // ================= LOGIN =================
+  const loginForm = document.getElementById("loginForm");
+
+  if (loginForm) {
+    console.log("Login form detected");
+
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      console.log("Login clicked");
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        console.log("Login response:", data);
+
+        if (res.ok) {
+          // ✅ Save session
+          localStorage.setItem("loggedInUser", JSON.stringify(data));
+          
+            if (data.role === "admin") {
+              localStorage.setItem("isAdmin", "true");
+            } else {
+              localStorage.removeItem("isAdmin");
+            }
+
+          console.log("Saved user:", localStorage.getItem("loggedInUser"));
+
+          alert("Login successful!");
+          window.location.href = "index.html";
+
+        } else {
+          alert(data.error);
+        }
+
+      } catch (err) {
+        console.log(err);
+        alert("Server error!");
+      }
+    });
+  }
 
 });
-}
-
-
-// ================= LOGIN =================
-
-const loginForm = document.getElementById("loginForm");
-
-if(loginForm){
-
-loginForm.addEventListener("submit", function(e){
-
-e.preventDefault();
-
-const email = document.getElementById("loginEmail").value;
-const password = document.getElementById("loginPassword").value;
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-let validUser = users.find(user =>
-user.email === email && user.password === password
-);
-
-if(validUser){
-
-
-localStorage.setItem("loggedInUser", JSON.stringify(validUser));
-
-
-if(validUser.email === "admin@gmail.com"){
-  localStorage.setItem("isAdmin", "true");
-}else{
-  localStorage.removeItem("isAdmin");
-}
-
-alert("Login successful!");
-
-window.location.href = "index.html";
-
-}else{
-alert("Invalid credentials!");
-}
-
-});
-}
-

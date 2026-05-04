@@ -1,92 +1,84 @@
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-if(localStorage.getItem("isAdmin") !== "true"){
-  alert("Access Denied!");
+// 🔒 Protect admin page
+if (!user || user.role !== "admin") {
+  alert("Access denied");
   window.location.href = "index.html";
 }
 
-const items = JSON.parse(localStorage.getItem("items")) || [];
 const container = document.getElementById("adminItems");
+const filter = document.getElementById("filterStatus");
 
-items.forEach((item, index) => {
+async function loadItems() {
+  const res = await fetch("http://localhost:5000/api/items");
+  let items = await res.json();
 
-const card = document.createElement("div");
-card.className = "item-card";
+  const selected = filter.value;
 
-card.innerHTML = `
+  if (selected !== "all") {
+    items = items.filter(item => item.status === selected);
+  }
 
-<h3>${item.name}</h3>
+  container.innerHTML = "";
 
-<p><strong>Type:</strong> ${item.type}</p>
-<p><strong>Status:</strong> ${item.status}</p>
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item-card";
 
-<p><strong>Category:</strong> ${item.category}</p>
-<p><strong>Description:</strong> ${item.description}</p>
-<p><strong>Location:</strong> ${item.location}</p>
-<p><strong>Date:</strong> ${item.date}</p>
+    div.innerHTML = `
+      <h3>${item.name}</h3>
+      <p>Status: ${item.status}</p>
+      <p>User: ${item.userEmail}</p>
 
-<p><strong>User:</strong> ${item.userEmail}</p>
+      ${item.status === "pending" ? `
+        <button onclick="approve('${item._id}')">Approve</button>
+        <button onclick="reject('${item._id}')">Reject</button>
+      ` : ""}
 
-${
-  item.status === "pending"
-    ? `
-    <button class="approve-btn">Approve</button>
-    <button class="reject-btn">Reject</button>
-    `
-    : ""
+      <button onclick="deleteItem('${item._id}')">Delete</button>
+    `;
+
+    container.appendChild(div);
+  });
 }
 
-<button class="delete-btn">Delete</button>
+filter.addEventListener("change", loadItems);
 
-`;
+loadItems();
 
-const approveBtn = card.querySelector(".approve-btn");
+// Approve
+async function approve(id) {
+  await fetch(`http://localhost:5000/api/items/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "claimed" })
+  });
 
-if(approveBtn){
-approveBtn.addEventListener("click", function(){
-
-items[index].status = "claimed";
-
-localStorage.setItem("items", JSON.stringify(items));
-
-alert("Claim approved!");
-
-location.reload();
-
-});
+  alert("Approved");
+  loadItems();
 }
 
-const rejectBtn = card.querySelector(".reject-btn");
+// Reject
+async function reject(id) {
+  await fetch(`http://localhost:5000/api/items/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      status: "active",
+      claimedBy: null
+    })
+  });
 
-if(rejectBtn){
-rejectBtn.addEventListener("click", function(){
-
-items[index].status = "active";
-delete items[index].claimedBy;
-
-localStorage.setItem("items", JSON.stringify(items));
-
-alert("Claim rejected!");
-
-location.reload();
-
-});
+  alert("Rejected");
+  loadItems();
 }
 
-const deleteBtn = card.querySelector(".delete-btn");
+// Delete
+async function deleteItem(id) {
+  await fetch(`http://localhost:5000/api/items/${id}`, {
+    method: "DELETE"
+  });
 
-deleteBtn.addEventListener("click", function(){
-
-items.splice(index, 1);
-
-localStorage.setItem("items", JSON.stringify(items));
-
-alert("Item deleted!");
-
-location.reload();
-
-});
-
-container.appendChild(card);
-
-});
-
+  alert("Deleted");
+  loadItems();
+}

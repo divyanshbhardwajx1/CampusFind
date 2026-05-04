@@ -14,7 +14,17 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "User already exists" });
     }
 
-    const user = new User(req.body);
+    // 🔥 Assign role
+    let role = "user";
+    if (email === "admin@gmail.com") {
+      role = "admin";
+    }
+
+    const user = new User({
+      ...req.body,
+      role
+    });
+
     await user.save();
 
     res.json({ message: "Registered successfully" });
@@ -24,17 +34,29 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
 // LOGIN
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email, password });
+  console.log("LOGIN DATA:", email, password);
+
+  const user = await User.findOne({ email });
+
+  console.log("USER FOUND:", user);
 
   if (!user) {
-    return res.status(400).json({ error: "Invalid credentials" });
+    return res.status(400).json({ error: "Invalid email" });
   }
 
-  res.json(user);
-});
+  // 🔥 IMPORTANT FIX
+  if (user.password.trim() !== password.trim()) {
+    return res.status(400).json({ error: "Invalid password" });
+  }
 
-module.exports = router;  
+  res.json({
+    name: user.name,
+    email: user.email,
+    role: user.role
+  });
+});

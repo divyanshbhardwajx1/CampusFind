@@ -1,34 +1,40 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Panel | CampusFind</title>
-<link rel="stylesheet" href="css/style.css">
+  <title>Admin Panel | CampusFind</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header class="navbar">
-<div class="logo">Admin Panel</div>
+  <div class="logo">Admin Panel</div>
 
-<nav class="nav-links">
-<a href="index.html">Home</a>
-<a href="lost-items.html">Lost Items</a>
-<a href="found-items.html">Found Items</a>
-</nav>
-
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="lost-items.html">Lost Items</a>
+    <a href="found-items.html">Found Items</a>
+    <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+    <button onclick="logout()" class="report-btn">Logout</button>
+  </nav>
 </header>
 
 <section class="items-section">
+  <h1>All Reported Items</h1>
 
-<h1>All Reported Items</h1>
+  <!-- 🔥 Optional filter -->
+  <select id="filterStatus">
+    <option value="all">All</option>
+    <option value="pending">Pending</option>
+    <option value="active">Active</option>
+    <option value="claimed">Claimed</option>
+  </select>
 
-<div class="items-grid" id="adminItems"></div>
-
+  <div class="items-grid" id="adminItems"></div>
 </section>
 
+<script src="js/auth.js"></script> <!-- for logout -->
 <script src="js/admin.js"></script>
 
 </body>
 </html>
-
