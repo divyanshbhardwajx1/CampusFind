@@ -1,41 +1,41 @@
-# 🚀 CampusFind – Lost & Found Portal
+# 🚀 CampusFind – Smart Lost & Found System
 
-A full-stack web application designed to help students report, track, and claim lost and found items within a campus.
+A full-stack web application designed to streamline the process of reporting, tracking, and claiming lost and found items within a campus environment.
 
 ---
 
 ## 📌 Overview
 
-CampusFind provides a centralized platform where users can:
+CampusFind provides a centralized and efficient platform where users can:
 
-* Report lost items
-* Report found items
-* Search items easily
-* Claim items securely
-* Admin can verify and manage claims
+* Report lost items 📉
+* Report found items 📈
+* Search items easily 🔍
+* Claim items securely 🔐
+* Enable admin verification for authenticity 👨‍💼
 
 ---
 
 ## 🧱 Tech Stack
 
-### Frontend
+### 🌐 Frontend
 
 * HTML5
 * CSS3
 * JavaScript (Vanilla JS)
 * Bootstrap
 
-### Backend
+### ⚙️ Backend
 
 * Node.js
 * Express.js
 
-### Database
+### 🗄 Database
 
 * MongoDB
 * Mongoose
 
-### Communication
+### 🔗 Communication
 
 * REST APIs (Fetch API)
 
@@ -49,59 +49,131 @@ CampusFind provides a centralized platform where users can:
 * Report Lost Items
 * Report Found Items
 * Search functionality
-* Claim items (with validation)
+* Claim items (with validation logic)
 
-### 🔐 Admin Features
+### 👨‍💼 Admin Features
 
-* View all items
+* View all reported items
 * Approve / Reject claims
-* Delete items
-* Monitor system activity
+* Delete invalid or spam entries
+* Monitor user activity
 
 ---
 
-## 🔄 System Flow
+## 🔄 System Workflow
 
+```text id="workflow"
 Active → Pending → Claimed → Returned
+```
+
+---
+
+## 📂 Project Structure
+
+```text id="structure"
+CampusFind/
+│
+├── backend/
+│   ├── config/
+│   ├── models/
+│   ├── routes/
+│   └── server.js
+│
+├── css/
+├── js/
+├── *.html
+├── .gitignore
+└── README.md
+```
 
 ---
 
 ## ⚙️ How to Run the Project
 
-### 1️⃣ Start MongoDB
+### 1️⃣ Clone the Repository
 
-mongod
+```bash id="clone"
+git clone https://github.com/divyanshbhardwajx1/CampusFind.git
+cd CampusFind
+```
 
 ---
 
-### 2️⃣ Start Backend
+### 2️⃣ Install Backend Dependencies
 
+```bash id="install"
 cd backend
-node server.js
+npm install
+```
 
 ---
 
-### 3️⃣ Run Frontend
+### 3️⃣ Start MongoDB
 
-* Open `index.html` in browser
-* (or use Live Server in VS Code)
+```bash id="mongod"
+mongod
+```
+
+---
+
+### 4️⃣ Run Backend Server
+
+```bash id="server"
+node server.js
+```
+
+---
+
+### 5️⃣ Run Frontend
+
+* Open `index.html` using browser
+* OR use Live Server in VS Code
+
+---
+
+## 🌐 API Endpoints
+
+### 🔐 Authentication
+
+* POST `/api/auth/register`
+* POST `/api/auth/login`
+
+### 📦 Items
+
+* GET `/api/items`
+* POST `/api/items`
+* PUT `/api/items/:id`
+* DELETE `/api/items/:id`
+
+---
+
+## 📊 Current Status
+
+* ✅ Backend fully implemented
+* ✅ MongoDB integrated
+* ✅ Authentication system working
+* ✅ Admin panel functional
+* 🔄 Frontend fully connected to APIs
+
+---
 
 ## 🚧 Future Enhancements
 
-* JWT Authentication
+* JWT-based authentication
 * Password hashing (bcrypt)
-* Image upload handling
-* Email verification system
-* Real-time notifications
+* Image upload for items
+* Email notifications
+* Real-time updates (WebSockets)
 
 ---
 
 ## 💡 Key Learning Outcomes
 
-* Full-stack development
+* Full-stack web development
 * REST API design
-* Database integration (MongoDB)
-* Authentication handling
+* MongoDB integration
+* Authentication & session handling
+* Role-based access control (Admin/User)
 * Git & GitHub workflow
 
 ---
@@ -109,16 +181,16 @@ node server.js
 ## 👨‍💻 Author
 
 **Divyansh Bhardwaj**
-Cybersecurity Enthusiast | Developer | 
-
----
-
-## ⭐ Note
-
-This project is developed as part of a **Software Engineering academic project**.
+Cybersecurity Enthusiast | Developer
 
 ---
 
 ## 📌 License
 
-This project is for educational purposes.
+This project is developed for academic and educational purposes.
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
